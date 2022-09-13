@@ -40,8 +40,8 @@ type Point struct {
 func main() {
 	fmt.Println("Hi")
 
-	// SearchByProduct()
-	ListProduct()
+	SearchByProduct()
+	// ListProduct()
 	// ListShop()
 }
 
@@ -80,10 +80,11 @@ func ListProduct() {
 	wg.Add(1)
 	go func() {
 		stream, err := listProductClient.ListProduct(requestCtx, &pb.ListProductReq{
-			PriceGte:  200.55,
-			PriceLte:  230.25,
-			WeightGte: 40.0,
-			Name:      "Potash",
+			// ShopId:    "631db549ea96d786389ca57b",
+			PriceGte: 200.55,
+			PriceLte: 230.25,
+			// WeightGte: 40.0,
+			Name: "Urea",
 		})
 		if err != nil {
 			log.Fatal(err)
@@ -107,7 +108,7 @@ func ListProduct() {
 
 func SearchByProduct() {
 	ids := []string{
-		"631dd394590a9ea1f4d9a733", "631dd3ca590a9ea1f4d9a734",
+		"63202fb3340d143984029592", "6320304e340d143984029593",
 	}
 	var wg sync.WaitGroup
 
@@ -115,7 +116,8 @@ func SearchByProduct() {
 		wg.Add(1)
 		go func(id string) {
 			res, err := searchClient.SearchByProduct(requestCtx, &pb.SearchByProductReq{
-				Id: id,
+				ProductId: id,
+				ShopId:    "631e96be0eb0d0a28641d7fa",
 			})
 			if err != nil {
 				log.Fatal(err)
